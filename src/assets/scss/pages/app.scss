@@ -1,0 +1,15 @@
+.main {
+  &__content {
+    margin: 0 auto;
+    width: 90%;
+    @include desktop1024 {
+      width: 92%;
+    }
+    @include desktop1200 {
+      width: 1024px;
+    }
+    .todo {
+      padding: 28px 0;
+    }
+  }
+}

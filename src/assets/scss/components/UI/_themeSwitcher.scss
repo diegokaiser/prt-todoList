@@ -1,0 +1,21 @@
+.themeSwitcher {
+  bottom: 2em;
+  position: fixed;
+  right: 2em;
+  z-index: 9999;
+  button {
+    height: 35px;
+    padding: 0;
+    min-width: unset;
+    width: 35px;
+    svg {
+      height: 100%;
+      width: auto;
+      path {
+        @media (prefers-color-scheme: dark) {
+          fill: #1a1a1a;
+        }
+      }
+    }
+  }
+}

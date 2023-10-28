@@ -1,0 +1,122 @@
+.modal {
+  align-items: center;
+  background: rgba($color: #000000, $alpha: .25);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  opacity: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transform: scale(0.9);
+  visibility: hidden;
+  z-index: -9;
+  transition: .35s ease;
+  &.active {
+    opacity: 1;
+    transform: scale(1);
+    visibility: visible;
+    z-index: 999;
+  }
+  &__content {
+    background-color: white;
+    border: 1px solid rgba($color: #000000, $alpha: 0.2);
+    border-radius: 0.3rem;
+    padding: 1.5rem;
+    position: relative;
+    max-width: 520px;
+    z-index: 999;
+    h4 {
+      color: #1a1a1a;
+      margin-bottom: 35px;
+    }
+    .input {
+      &__field {
+        margin-top: 14px;
+        position: relative;
+        width: 100%;
+        input {
+          border: 1px solid #555;
+          border-radius: 4px;
+          color: #1a1a1a;
+          font-size: 1em;
+          padding: 0.6em 1.4em 0.6em 1.2em;
+          width: 100%;
+          &:focus {
+            outline: none;
+          }
+          &::placeholder {
+            color: transparent;
+          }
+          &:placeholder-shown+label+button {
+            display: none;
+          }
+          &:focus+label,
+          &:not(:placeholder-shown)+label {
+            left: 0;
+            top: -28px;
+          }
+        }
+        select {
+          border: 1px solid #555;
+          border-radius: 4px;
+          color: #1a1a1a;
+          font-size: 1em;
+          padding: 0.6em 1.2em;
+          width: 100%;
+        }
+        label {
+          color: #1a1a1a;
+          left: 1.2em;
+          pointer-events: none;
+          position: absolute;
+          top: 10px;
+          transform-origin: left center;
+          transition: 250ms ease;
+        }
+        button {
+          &.clear {
+            align-items: center;
+            appearance: none;
+            background: none;
+            border: none;
+            color: #777;
+            cursor: pointer;
+            display: flex;
+            height: 30px;
+            justify-content: center;
+            min-width: unset;
+            padding: 0;
+            position: absolute;
+            right: 0px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            transition: color 250ms;
+            &:hover,
+            &:focus {
+              color: #333;
+            }
+            &:focus-visible {
+              outline: none;
+            }
+            svg {
+              pointer-events: none;
+              user-select: none;
+            }
+          }
+        }
+        &.actions {
+          align-items: flex-start;
+          display: flex;
+          justify-content: space-between;
+          gap: 10px;
+          button {
+            width: 50%;
+          }          
+        }
+      }
+    }
+  }
+}

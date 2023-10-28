@@ -1,0 +1,53 @@
+html {
+  &[scheme=dark-mode] {
+    body {
+      background: #393939;
+    }
+    .login {
+      &__signin,
+      &__signup,
+      &__forgot {
+        background: rgba($color: #333, $alpha: 1);
+      }
+      .input {
+        &__field {
+          input {
+            background: #1a1a1a;
+          }
+        }
+      }
+    }
+    .todo {
+      &__profile {
+        .profile {
+          &__name {
+            color: #f5f5f5;
+          }
+        }
+      }
+      &__counter {
+        .counter {
+          color: #f5f5f5;
+        }
+      }
+      &__search {
+        input {
+          background: #1a1a1a;
+        }
+      }
+      &__list {
+        &-item {
+          &.medium{
+            border-color: #FFF6E5;
+          }
+          &.high {
+            border-color: #F5F5F5;
+          }
+          &.completed {
+            border-color: #E5FAEA;
+          }
+        }
+      }
+    }
+  }
+}

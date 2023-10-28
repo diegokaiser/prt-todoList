@@ -1,0 +1,111 @@
+.header {
+  background: white;
+  height: 70px;
+  &__content {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    height: 100%;
+  }
+  &__logo {
+    background: black;
+  }
+  &__nav {
+    align-items: center;
+    background: white;
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    .menuTrigger {
+      border-radius: 35px;
+      display: block;
+      height: 35px;
+      padding: 0;
+      margin-right: 14px;
+      min-width: unset;
+      position: relative;
+      width: 35px;
+      @media (prefers-color-scheme: dark) {
+        background: #1a1a1a;
+        span {
+          background: white;
+        }
+      }
+      span {
+        border-radius: 2px;
+        display: block;
+        height: 3px;
+        margin: 2px 0;
+        position: relative;
+        transform: rotate(0deg) translateX(6px) translateY(0);
+        width: 21px;
+        transition: .35s ease;
+        &:nth-child(2) {
+          opacity: 1;
+        }
+      }
+      &.active {
+        span {
+          margin: 0;
+          position: absolute;
+          &:first-child {
+            transform: rotate(45deg) translateX(4px) translateY(-4px);
+          }
+          &:nth-child(2) {
+            opacity: 0;
+          }
+          &:last-child {
+            transform: rotate(-45deg) translateX(4px) translateY(4px);
+          }
+        }
+      }
+    }
+    ul {
+      background: white;
+      border-top: 1px solid #ddd;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      top: -70px;
+      width: 100%;
+      z-index: -999;
+      transition: .35s ease;
+      &.active {
+        right: 0;
+        top: 70px;
+        z-index: 999;
+      }
+      li {
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        justify-content: flex-start;
+        padding: 0.6em 1.2em;
+        width: 100%;
+        a,
+        button {
+          align-items: center;
+          display: flex;
+          font-size: 0.8rem;
+          font-weight: 600;
+          justify-content: flex-start;
+          padding: 0;
+          text-transform: uppercase;
+          svg {
+            margin-right: 7px;
+            height: 16px;
+            width: auto;
+          }
+          @media (prefers-color-scheme: dark) {
+            color: #1a1a1a;
+            svg {
+              path {
+                fill: #1a1a1a;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

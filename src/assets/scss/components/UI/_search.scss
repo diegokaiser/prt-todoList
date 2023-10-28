@@ -1,0 +1,70 @@
+.todo {
+  &__search {
+    margin-bottom: 28px;
+    margin-top: 42px;
+    position: relative;
+    input {
+      background: #fff;
+      border: 1px solid #555;
+      border-radius: 4px;
+      font-size: 1em;
+      padding: 0.6em 1.2em;
+      width: 100%;
+      &:focus {
+        outline: none;
+      }
+    
+      &::placeholder {
+        color: transparent;
+      }
+    
+      &:placeholder-shown+label+button {
+        display: none;
+      }
+    
+      &:focus+label,
+      &:not(:placeholder-shown)+label {
+        left: 0;
+        top: -28px;
+      }
+    }
+    label {
+      left: 1.2em;
+      pointer-events: none;
+      position: absolute;
+      top: 10px;
+      transform-origin: left center;
+      transition: 250ms ease;
+    }
+    button {
+      align-items: center;
+      appearance: none;
+      background: none;
+      border: none;
+      color: #777;
+      cursor: pointer;
+      display: flex;
+      height: 30px;
+      justify-content: center;
+      min-width: unset;
+      padding: 0;
+      position: absolute;
+      right: 0px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px;
+      transition: color 250ms;
+      &:hover,
+      &:focus {
+        color: #333;
+      }
+      &:focus-visible {
+        outline: none;
+      }
+      svg {
+        pointer-events: none;
+        user-select: none;
+      }
+    }
+  }
+}
