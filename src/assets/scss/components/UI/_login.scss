@@ -10,10 +10,7 @@
     position: relative;
     width: 90%;
     @include desktop1024 {
-      width: 92%;
-    }
-    @include desktop1200 {
-      width: 1024px;
+      width: 414px;
     }
   }
   &__signin,
@@ -54,10 +51,7 @@
     margin: 21px auto 0 auto;
     width: 90%;
     @include desktop1024 {
-      width: 92%;
-    }
-    @include desktop1200 {
-      width: 1024px;
+      width: 414px;
     }
     h4 {
       font-size: .8em;
