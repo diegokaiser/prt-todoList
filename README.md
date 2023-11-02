@@ -8,6 +8,6 @@ Design based [Simple ToDo List](https://www.figma.com/file/io41o8BrWkw3aCTp15jmO
 
 ### TODO:
 
-- Filtrar ASC y DESC en la tabla usuarios / Filter ASC y DESC in the users table
+- Filtrar ASC y DESC / Filter ASC y DESC 
 - Validación de campos en Add User / Validate data in input fields in Add User
 - Usar Vitest para realizar testing / Use Vitest for testing

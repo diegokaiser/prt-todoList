@@ -7,7 +7,10 @@ import {
   collection, 
   addDoc, 
   updateDoc,
-  deleteDoc 
+  deleteDoc,
+  query,
+  where, 
+  orderBy
 } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { Header } from './layout/Header'
@@ -19,6 +22,7 @@ import { Empty } from './UI/list/Empty'
 import { Item } from './UI/list/Item'
 import { Create } from './UI/create/Create'
 import { HeadProfile } from './UI/profile/HeadProfile'
+import { Loading } from './UI/loading/Loading'
 
 export function AppUI({
   userObj,
@@ -28,31 +32,36 @@ export function AppUI({
   const todosCollectionRef = collection(db, 'todos')
   const [activeModal, setActiveModal] = useState(false)
   const [editModal, setEditModal] = useState(false)
+  const [searchValue, setSearchValue] = useState('')
+  const userId = userObj.uid
 
   const getTodos = async () => {
-    let data
-    let dataArr = ''
-    await getDocs(todosCollectionRef)
-      .then(
-        data = await getDocs(todosCollectionRef)
-      )
-      .then(
-        dataArr = data.docs.map(doc => ({
-          ...doc.data(), 
-          id: doc.id
-        }))
-      )
-      .then(
-        setTodos(dataArr)        
-      )
-      .catch((error) => {
-        console.log(error)
-      })
+    const q = query(todosCollectionRef, where('createdBy', '==', userId), orderBy('createdAt', 'desc'))
+    try {
+      const data = await getDocs(q)
+      const dataArr = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id
+      }))
+      setTodos(dataArr)
+      console.log(dataArr)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {
     getTodos()
   },[])
+
+  const searchTodo = todos.filter((todo) => {
+    const noTildes = (text) => {
+      return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    };
+    const todoTextToLowerCase = noTildes(todo.text.toLowerCase());
+    const searchValueToLowerCase = noTildes(searchValue.toLowerCase());
+    return todoTextToLowerCase.includes(searchValueToLowerCase);
+  })
 
   const onSubmitTodo = async (e, text, level) => {
     e.preventDefault()
@@ -136,19 +145,22 @@ export function AppUI({
 
   return (
     <>
-      <Header userObj={userObj} />
+      <Header userObj={userObj} errorObj={errorObj} />
       <main className="main">
         <div className="main__content">
           <div className="todo">
             <HeadProfile userObj={userObj} />
             <Counter totalTodos={todos.length} completedTodos={todos.filter(todo => !!todo.completed).length} />
-            <Search />
+            <Search 
+              searchValue={searchValue} 
+              setSearchValue={setSearchValue} 
+            />
             <List>
               {
                 todos.length > 0 ?
                 <>
                   {
-                    todos.map((todo) => {
+                    searchTodo.map((todo) => {
                       return (
                         <Item 
                           key={todo.id}
@@ -164,7 +176,7 @@ export function AppUI({
                     })
                   }
                 </> :
-                <Empty />
+                <Loading />
               }              
             </List>            
             <Create 

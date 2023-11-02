@@ -1,8 +1,13 @@
+/* eslint-disable react/prop-types */
+
 import { 
   FaCircleXmark
 } from 'react-icons/fa6'
 
-export function Search() {
+export function Search({
+  searchValue,
+  setSearchValue
+}) {
   // clear fields
   const handleClear = (e) => {
     e.preventDefault()
@@ -17,6 +22,10 @@ export function Search() {
         name="search"
         id="search"
         placeholder='Search...'
+        value={searchValue}
+        onChange={(event) => {
+          setSearchValue(event.target.value)
+        }}
       />
       <label htmlFor="search">Search...</label>
       <button
