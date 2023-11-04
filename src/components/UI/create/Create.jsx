@@ -15,7 +15,6 @@ export function Create({
   openModal,
   closeModal
 }) {
-  const [id, setId] = useState('')
   const [text, setText] = useState('')
   const [level, setLevel] = useState('')
 

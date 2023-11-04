@@ -1,18 +1,30 @@
+/* eslint-disable react/prop-types */
+
 import {
   FaSun,
   FaMoon ,
   FaRegHandPointLeft
 } from 'react-icons/fa6'
-import { auth } from '../../config/firebase.config'
-import { signOut } from 'firebase/auth'
-import { useNavigate } from 'react-router-dom'
+import { 
+  FaSortAlphaDown,
+  FaSortAlphaUpAlt,
+  FaSort
+} from 'react-icons/fa'
 import { useEffect, useState } from 'react'
 
-export function Header() {
+export function Header({ 
+  userObj,
+  onChangeTheme,
+  orderByAscending,
+  orderByDescending,
+  orderAsc,
+  orderByCompleted,
+  onHandleLogout
+}) {
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
   const [dark, setDark] = useState(prefersDark)
   const [menu, setMenu] = useState(false)
-  const navigate = useNavigate()
+
 
   useEffect(() => {
     if(dark) {
@@ -34,17 +46,6 @@ export function Header() {
       setDark(true)
       document.documentElement.setAttribute('scheme', 'dark-mode')
     }
-  }
-
-  const handleLogout = (e) => {
-    e.preventDefault()
-    signOut(auth)
-      .then(() => {
-        navigate("/")
-      })
-      .catch((error) => {
-        console.log(error)
-      })
   }
 
   return (
@@ -79,9 +80,37 @@ export function Header() {
                 </button>
               </li>
               <li>
+                {
+                  !orderAsc ?
+                  <button 
+                    type="button"
+                    onClick={(e) => orderByAscending(e)}
+                  >
+                    <FaSortAlphaDown />
+                    Order Ascending
+                  </button> :
+                  <button 
+                    type="button"
+                    onClick={(e) => orderByDescending(e)}
+                  >
+                    <FaSortAlphaUpAlt />
+                    Order Descending
+                  </button>
+                }
+              </li>
+              <li>
+                <button 
+                  type="button"
+                  onClick={(e) => orderByCompleted(e)}
+                >
+                  <FaSort />
+                  Order completed
+                </button>
+              </li>
+              <li>
                 <button
                   type='button'
-                  onClick={handleLogout}
+                  onClick={(e) => onHandleLogout(e, userObj.uid)}
                 >
                   <FaRegHandPointLeft />
                   Logout

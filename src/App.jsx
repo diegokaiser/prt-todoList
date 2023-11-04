@@ -7,15 +7,18 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged, 
   signInWithEmailAndPassword, 
-  signInWithPopup 
+  signInWithPopup, 
+  signOut
 } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { Login } from './components/UI/login/Login'
 import { AppUI } from './components/AppUI'
+import { useNavigate } from 'react-router-dom'
 
 function App() {
   const [userObj, setUserObj] = useState({})
   const [errorObj, setErrorObj] = useState({})
+  const navigate = useNavigate()
 
   // is user logged?
   useEffect(() => {
@@ -71,6 +74,16 @@ function App() {
   // sign up
 
   // log out
+  const onLogout = (e) => {
+    e.preventDefault()
+    signOut(auth)
+      .then(() => {
+        navigate("/")
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
 
   return (
     <>
@@ -79,6 +92,7 @@ function App() {
         <AppUI 
           userObj={userObj} 
           errorObj={errorObj}
+          logout={onLogout}
         /> :
         <Login 
           signIn={signIn} 
